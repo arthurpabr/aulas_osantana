@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Agenda</title>
+        <link rel="stylesheet" type="text/css" href="{% static "styles/bootstrap.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "styles/main.css" %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li><a href="#">Sair</a></li>
+                </ul>
+                <h3 class="text-muted">Agenda</h3>
+            </div>
+            <div>
+                <h1>Bem-vindo a Agenda!</h1>
+                <h4>Hoje é {% now "d/m/Y" %}</h4>
+            </div>	
+            <div class="row content">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

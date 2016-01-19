@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block body %}
+<a href="adiciona/">Adicionar um novo item</a>
+
+<ul class="list-style">
+	{% for item in lista_de_itens %}
+	<li>
+		<a href="detalha/{{item.id}}" class="pull-right">
+			{{ item.data|date:'d/m/Y'}} - {{ item.titulo }}
+		</a>
+	</li>
+	{% empty %}
+		<li>Sem itens na lista</li>
+	{% endfor %}
+</ul>
+{% endblock %}
