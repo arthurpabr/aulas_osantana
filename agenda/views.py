@@ -1,8 +1,9 @@
 # _*_ encoding: utf-8 _*_
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from agenda.models import ItemAgenda
 from agenda.forms import ItemAgendaForm
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 @login_required
 def lista(request):
@@ -31,10 +32,25 @@ def adiciona(request):
 
 @login_required
 def item(request, nr_item):
-	#consultar 20min do vídeo 11
-	pass
+	#try:
+	#	item = ItemAgenda.objects.get(id=nr_item)
+	#except ItemAgenda.DoesNotExist:
+	#	raise Http404(u"Este item não existe!")
+	item = get_object_or_404(ItemAgenda, pk=nr_item)
+	if request.method == 'POST':
+		form = ItemAgendaForm(request.POST, instance=item)
+		if form.is_valid:
+			form.save()
+			return render(request,'salvo.html',{})	
+	else :
+		form = ItemAgendaForm(instance=item)
+	return render(request, 'item.html', {"form": form})	
 
 @login_required
-def remove(request):
-	#consultar 20min do vídeo 11
-	pass
+def remove(request, nr_item):
+	item = get_object_or_404(ItemAgenda, pk=nr_item)
+	if request.method == 'POST':
+		item.delete()
+		return render(request,'removido.html',{})	
+
+	return render(request, 'remove.html', {"item": item})	

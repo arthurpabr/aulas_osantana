@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Remover</h1>
+<h2>{{ item.titulo }}</h2>
+<p> {{ item.data }} - {{ item.hora }}</p>
+<pre>{{ item.descricao }}</pre>
+<form action="" method="post" class="form-group">
+	{% csrf_token %}
+	<button type="submit" class="btn btn-default">Remover</button>
+</form>
+<a href="/">Voltar para a listagem</a>
+{% endblock %}

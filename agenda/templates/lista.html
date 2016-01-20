@@ -1,16 +1,34 @@
 {% extends 'base.html' %}
 {% block body %}
-<a href="adiciona/">Adicionar um novo item</a>
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<a href="adiciona/">Adicionar um novo item</a>			
+		</div>
+	</div>
+	<div class="row">
+		<ul>
+			{% for item in lista_de_itens %}
+			<li style="list-style-type: none;">
+				<div class="col-md-4">
+					<a href="{% url 'remove' item.id %}" class="pull-right">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a>
+				</div>
+				<div class="col-md-8">
+					<a href="{% url 'detalha' item.id %}" class="pull-left">
+						{{ item.data|date:'d/m/Y'}} - {{ item.titulo }}
+					</a>
+				</div>
+			</li>
+			{% empty %}
+				<li>Sem itens na lista</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
 
-<ul class="list-style">
-	{% for item in lista_de_itens %}
-	<li>
-		<a href="detalha/{{item.id}}" class="pull-right">
-			{{ item.data|date:'d/m/Y'}} - {{ item.titulo }}
-		</a>
-	</li>
-	{% empty %}
-		<li>Sem itens na lista</li>
-	{% endfor %}
-</ul>
+
+
+
 {% endblock %}
