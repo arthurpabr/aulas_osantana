@@ -36,7 +36,7 @@ def item(request, nr_item):
 	#	item = ItemAgenda.objects.get(id=nr_item)
 	#except ItemAgenda.DoesNotExist:
 	#	raise Http404(u"Este item não existe!")
-	item = get_object_or_404(ItemAgenda, pk=nr_item)
+	item = get_object_or_404(ItemAgenda, pk=nr_item, usuario=request.user)
 	if request.method == 'POST':
 		form = ItemAgendaForm(request.POST, instance=item)
 		if form.is_valid:
