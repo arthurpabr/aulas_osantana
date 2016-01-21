@@ -27,6 +27,7 @@ def adiciona(request):
 			item = form.save(commit=False)
 			item.usuario = request.user
 			item.save()
+			form.save_m2m()
 			return render(request,'salvo.html',{})		
 	return render(request, 'adiciona.html', {"form": form})
 

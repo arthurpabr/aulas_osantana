@@ -86,3 +86,10 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
+
+#DEFAULT_FROM_EMAIL='codeigniteralura@gmail.com'
+#EMAIL_HOST='ssl://stmp.gmail.com'
+#EMAIL_PORT=465
+#EMAIL_HOST_USER='codeigniteralura@gmail.com'
+#EMAIL_HOST_PASSWORD='123456'
+#EMAIL_USE_TLS=True

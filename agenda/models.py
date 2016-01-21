@@ -13,3 +13,23 @@ class ItemAgenda(models.Model):
 	#o método abaixo personaliza o nome do objeto dentro do ambiente 'admin'
 	def __unicode__(self):
 		return u"%s - %s %s" % (self.titulo, self.data, self.hora)
+
+def envia_email(**kwargs):
+	try:
+		item = kwargs['instance']
+	except KeyError:
+		return
+
+	for participante in item.participantes.all():
+		if not participante.email:
+			continue
+
+		dados = (item.titulo, item.data.strftime("%d/%m/%Y"), item.hora)
+		participante.email_user(
+				subject="[evento] %s dia %s as %s" % dados,
+				message="Evento: %s\nDia: %s\nHora: %s\n" % dados,
+				from_email=item.usuario.email
+			)
+
+models.signals.post_save.connect(envia_email, sender=ItemAgenda,
+ dispatch_uid="agenda.models.ItemAgenda")
